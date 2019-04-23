@@ -82,7 +82,7 @@ export default {
   },
   watch: {
     tempName: function () {
-      let a = this.curencyList.filter(x => x.startsWith(this.tempName))[0]
+      let a = this.curencyList.filter(x => x === this.tempName)[0]
       this.tempFlag = this.allCur.filter(x => x.name === a)[0].flag
       this.tempId = this.allCur.filter(x => x.name === a)[0]._id
       this.$emit('pushTop', { index: this.index, payloadCurrency: {currency: this.tempId, flag: this.tempFlag, denomination: this.tempDenomination} })
