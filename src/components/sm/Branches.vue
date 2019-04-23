@@ -150,7 +150,6 @@ export default {
           this.$router.push({name: 'login'})
           return
         }
-        console.log('response from create branch', x)
         this.branchName = ''
         this.dialog = false
         this.reset()
@@ -161,7 +160,6 @@ export default {
       this.dialog = !this.dialog
     },
     edit (id) {
-      console.log('id', id._id)
       this.$router.push({path: `EditBranch`, query: {id: id._id}})
     }
   }

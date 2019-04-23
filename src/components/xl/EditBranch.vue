@@ -106,22 +106,17 @@ export default {
     },
     pushTop (e) {
       this.currencies[e.index] = e.payloadCurrency
-      // console.log('pushed', e.index, this.currencies)
     },
     remove (e) {
-      // console.log('before', this.rate)
       this.rate.splice(e, 1)
-      // console.log('after', this.rate)
       this.currencies.splice(e, 1)
       let payload = {
         _id: this.$route.query.id,
         name: this.name,
         rates: this.currencies
       }
-      console.log(payload)
     },
     save () {
-      console.log('==', this.denomination, this.currencies)
       if (this.rate.length === 0 || this.currencies.length === 0) {
         alert('There is nothing to save')
         return
@@ -132,7 +127,6 @@ export default {
         name: this.name,
         rates: this.currencies
       }
-      console.log('payload', payload)
       // return
       Api.editBranch(payload, x => {
         if (x === 400) {
@@ -141,7 +135,6 @@ export default {
           this.indeterminate = false
           return
         }
-        console.log('not in if')
         if (x === 500) {
           alert('please fill all the form')
           this.reset()
@@ -154,7 +147,6 @@ export default {
           Api.resetToken()
           this.$router.push({name: 'login'})
         } else {
-          console.log(x, 'result')
           this.indeterminate = false
           alert('successful')
           this.reset()

@@ -24,14 +24,12 @@ export default {
       Vue.$http.defaults.headers.common['Authorization'] = response.data
       callback(response)
     }).catch(function (response) {
-      console.log('err')
       callback(response.response.status)
     })
   },
   // get all branches
   getbranches (callback) {
     Vue.$http.get('getbranches').then(function (response) {
-      console.log('getbranch', response)
       callback(response.data)
     }).catch(function (response) {
       callback(response)
@@ -44,7 +42,6 @@ export default {
       headers: {Authorization: `Bearer ${Store.state.token}`}
     }
     Vue.$http.get('getbranch', {params}, option).then(function (response) {
-      console.log('get branch', response)
       callback(response.data)
     }).catch(function (response) {
       callback(response)
@@ -56,7 +53,6 @@ export default {
       headers: {Authorization: `Bearer ${Store.state.token}`}
     }
     Vue.$http.get('getcurrencies', option).then(function (response) {
-      console.log('get currency', response)
       callback(response.data)
     }).catch(function (response) {
       callback(response)
@@ -68,7 +64,6 @@ export default {
       headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
     }
     Vue.$http.post('removebranch', param, option).then(function (response) {
-      console.log('removed branch', response)
       callback(response.data)
     }).catch(function (response) {
       callback(response.response.status)
@@ -80,7 +75,6 @@ export default {
       headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
     }
     Vue.$http.post('createcurrency', param, option).then(function (response) {
-      console.log('created branch', response)
       callback(response.data)
     }).catch(function (response) {
       callback(response.response.status)
@@ -92,7 +86,6 @@ export default {
       headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
     }
     Vue.$http.post('editcurrency', param, option).then(function (response) {
-      console.log('editcurrency', response)
       callback(response.data)
     }).catch(function (response) {
       callback(response.response.status)
@@ -104,7 +97,6 @@ export default {
       headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
     }
     Vue.$http.post('removecurrency', param, option).then(function (response) {
-      console.log('remove branch', response)
       callback(response.data)
     }).catch(function (response) {
       callback(response.response.status)
@@ -116,10 +108,8 @@ export default {
       headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
     }
     Vue.$http.post('createbranch', param, option).then(function (response) {
-      console.log('created branch', response)
       callback(response.data)
     }).catch(function (response) {
-      console.log('heema', response.response.status)
       callback(response.response.status)
     })
   },
@@ -130,12 +120,9 @@ export default {
     let option = {
       headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
     }
-    console.log(Store.state.token, 'token')
     Vue.$http.post('editbranch', param, option).then(function (response) {
-      console.log('edit branch', response, Store.state.token)
       callback(response.data)
     }).catch(function (response) {
-      console.log(response, 'err')
       callback(response.response.status)
     })
   }

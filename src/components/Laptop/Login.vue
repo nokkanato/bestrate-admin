@@ -63,7 +63,6 @@ export default {
     if (Api.isLogined()) {
       this.$router.push({name: 'DashBoard'})
     }
-    console.log(localStorage.getItem('token'), 'token')
   },
   data () {
     return {
@@ -93,8 +92,6 @@ export default {
         // Store.state.token = x.data
         this.indeterminate = false
         localStorage.setItem('token', x.data)
-        // console.log('token', x.data, 'token', localStorage.getItem('token'))
-        console.log('local')
         this.$router.push({name: `DashBoard`})
       })
     }

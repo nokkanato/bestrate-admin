@@ -40,7 +40,7 @@
                     <p v-if="saveState" class="element-save-ha">Save</p>
                     <p v-if="!saveState" @click="save()" class="element-save">Save</p>
                 </v-flex>
-                <v-flex v-if="this.id" xs2 @click="deletCurrency()">
+                <v-flex v-if="this.id" xs2 @click="deleteCurrency()">
                     <p class="element-delete">Delete</p>
                 </v-flex>
                 <v-flex v-if="!this.id" xs2 @click="handle()">
@@ -89,7 +89,7 @@ export default {
     handle () {
       this.$emit('handle', {index: this.index})
     },
-    deletCurrency () {
+    deleteCurrency () {
       let payload = {
         _id: this.id
       }
@@ -112,40 +112,56 @@ export default {
         let payload = {
           _id: _this.id,
           name: _this.tempName,
-          flag: _this.tempFlag
+          flag: _this.tempFlag,
         }
-        console.log(payload, 'payload')
         Api.editCurrency(payload, x => {
-          if (x === 401) {
-            alert('Session Expired')
-            Api.resetToken()
-            _this.$router.push({name: 'login'})
-          }
-          if (x === 500) {
-            alert('there was a problem')
-            _this.reset()
-          } else {
-            alert('successful')
-            _this.dialog = false
-            _this.saveState = true
-            _this.reset()
+          switch (x) {
+            case 401: {
+              alert('Session Expired')
+              Api.resetToken()
+              _this.$router.push({name: 'login'})
+              break
+            }
+            case 500: {
+              alert('there was a problem')
+              _this.reset()
+              break
+            }
+            default: {
+              alert('successful')
+              _this.dialog = false
+              _this.saveState = true
+              _this.reset()
+              break
+            }
           }
         })
       } else {
         let payload = {
           name: _this.tempName,
-          flag: _this.tempFlag
+          flag: _this.tempFlag,
         }
         Api.createCurrency(payload, x => {
-          if (x === 401) {
-            alert('Session Expired')
-            Api.resetToken()
-            _this.$router.push({name: 'login'})
+          switch (x) {
+            case 401: {
+              alert('Session Expired')
+              Api.resetToken()
+              _this.$router.push({name: 'login'})
+              break
+            }
+            case 500: {
+              alert('there was a problem')
+              _this.reset()
+              break
+            }
+            default: {
+              alert('successful')
+              _this.dialog = false
+              _this.saveState = true
+              _this.reset()
+              break
+            }
           }
-          alert('successful')
-          _this.dialog = false
-          _this.saveState = true
-          _this.reset()
         })
       }
     },
@@ -157,9 +173,7 @@ export default {
       var reader = new FileReader()
       reader.readAsDataURL(file)
       reader.onload = function () {
-        console.log(_this.tempFlag.substr(0, 10), 'before')
         _this.tempFlag = reader.result.split(',')[1]
-        console.log(_this.tempFlag.substr(0, 10), 'after')
       }
       reader.onerror = function (error) {
         console.log('Error: ', error)
@@ -177,7 +191,6 @@ export default {
         fr.addEventListener('load', () => {
           this.imageUrl = fr.result
           this.imageFile = files[0] // this is an image file that can be sent to server...
-          console.log(this.imageFile)
           this.getBase64(this.imageFile)
         })
       } else {

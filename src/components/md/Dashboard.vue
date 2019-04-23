@@ -36,7 +36,6 @@ export default {
     if (!Api.isLogined()) {
       this.$router.push({name: 'login'})
     }
-    console.log(this.$router.history.current.params.state)
     this.state = this.$router.history.current.params.state || 'Branches'
   },
   methods: {
