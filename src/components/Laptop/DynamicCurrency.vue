@@ -65,7 +65,7 @@
                 </v-flex>
                 <v-flex xs1 style="width:120%;">
                   <div style="width:120%;">
-                    <v-icon @click="remove('index')" style="font-size:30px;   padding-top:20px; color:red; cursor:pointer;">clear</v-icon>
+                    <v-icon @click="remove(index)" style="font-size:30px;   padding-top:20px; color:red; cursor:pointer;">clear</v-icon>
                   </div>
                 </v-flex>
             </v-layout>
@@ -111,6 +111,7 @@ export default {
       } else {
         this.tempDenomination.push({index: this.tempDenomination[this.tempDenomination.length - 1].index + 1, bill: '', sell: '', buy: ''})
       }
+      this.tempDenomination.push({index: this.tempDenomination[this.tempDenomination.length - 1].index + 1, bill: '', sell: '', buy: ''})
     },
     remove (e) {
       this.tempDenomination.splice(e, 1)

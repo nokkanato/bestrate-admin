@@ -52,13 +52,13 @@
                 <v-flex xs2 style="">
                 </v-flex>
             </v-layout>
-            <v-layout style="" row wrap v-for="(x, index) in tempDenomination" v-bind:key="index">
+            <v-layout style="" row wrap v-for="(x, index) in tempDenomination" v-bind:key="x.index">
                 <v-flex xs2></v-flex>
                 <v-flex xs8 style="width:100%;">
                     <Denomination :bill="x.bill" :buy="x.buy" :sell="x.sell" :index="index" @push="handlePush" ref="form" :name="x" :curencyList="x" :flag="x"></Denomination>
                 </v-flex>
                 <v-flex xs2>
-                    <v-icon @click="remove('index')" style="font-size:30px; padding-top:20px; color:red; cursor:pointer;">clear</v-icon>
+                    <v-icon @click="remove(index)" style="font-size:30px; padding-top:20px; color:red; cursor:pointer;">clear</v-icon>
                 </v-flex>
             </v-layout>
             <v-flex xs12 style="margin-top:20px;"></v-flex>
