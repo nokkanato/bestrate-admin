@@ -46,17 +46,23 @@ export default {
   watch: {
     tempBill: function () {
       if (this.tempBill && this.tempSell && this.tempBuy) {
-        this.$emit('push', {index: this.index, payload: {bill: this.tempBill, sell: this.tempSell, buy: this.tempBuy}})
+        if (this.tempBill !== this.bill) {
+          this.$emit('push', {index: this.index, payload: {bill: this.tempBill, sell: this.tempSell, buy: this.tempBuy}})
+        }
       }
     },
     tempBuy: function () {
       if (this.tempBill && this.tempSell && this.tempBuy) {
-        this.$emit('push', {index: this.index, payload: {bill: this.tempBill, sell: this.tempSell, buy: this.tempBuy}})
+        if (this.tempBuy !== this.buy) {
+          this.$emit('push', {index: this.index, payload: {bill: this.tempBill, sell: this.tempSell, buy: this.tempBuy}})
+        }
       }
     },
     tempSell: function () {
       if (this.tempBill && this.tempSell && this.tempBuy) {
-        this.$emit('push', {index: this.index, payload: {bill: this.tempBill, sell: this.tempSell, buy: this.tempBuy}})
+        if (this.tempSell !== this.sell) {
+          this.$emit('push', {index: this.index, payload: {bill: this.tempBill, sell: this.tempSell, buy: this.tempBuy}})
+        }
       }
     }
   },

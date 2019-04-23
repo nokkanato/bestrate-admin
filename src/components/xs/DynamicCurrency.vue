@@ -97,7 +97,7 @@ export default {
       this.$refs.form.lol()
     },
     addDenomination () {
-      this.tempDenomination.push({name: '', flag: ''})
+      this.tempDenomination.push({index: this.tempDenomination[this.tempDenomination.length - 1].index + 1, bill: '', sell: '', buy: ''})
     },
     remove (e) {
       this.tempDenomination.splice(e, 1)

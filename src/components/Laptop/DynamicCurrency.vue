@@ -109,7 +109,6 @@ export default {
       console.log(this.tempDenomination, '=======')
       console.log(this.tempDenomination[0].index, '==')
       this.tempDenomination.push({index: this.tempDenomination[this.tempDenomination.length - 1].index + 1, bill: '', sell: '', buy: ''})
-      // console.log(this.tempDenomination, this.tempDenomination.length)
     },
     remove (e) {
       this.tempDenomination.splice(e, 1)

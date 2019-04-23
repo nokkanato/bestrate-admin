@@ -26,7 +26,7 @@
                     </v-flex>
                 </v-layout>
                 <div v-if="loaded">
-                  <v-layout  row wrap v-for="(x, index) in rate" v-bind:key="index" style="border:solid 1px; margin-bottom:10px; background-color:#F0F0F0;">
+                  <v-layout  row wrap v-for="(x, index) in rate" v-bind:key="x.index" style="border:solid 1px; margin-bottom:10px; background-color:#F0F0F0;">
                       <v-flex xs10  >
                           <DynamicCurrency :allCur="allCur" :index="index" @pushTop="pushTop" :id="x.currency._id" :name="x.currency.name" :rate="rate" :denomination="x.denomination" :curencyList="curencyList" :flag="x.currency.flag"></DynamicCurrency>
                       </v-flex>
@@ -95,6 +95,7 @@ export default {
         this.detail = x
         this.name = this.detail.name
         this.rate = this.detail.rates
+        this.rate = this.rate.map((x, index) => ({...x, index}))
         Api.getAllCurrency(z => {
           this.allCur = z
           this.curencyList = z.map(y => y.name)
@@ -146,7 +147,7 @@ export default {
       })
     },
     addCurrency () {
-      this.rate.push({currency: {name: '', flag: ''}, denomination: ''})
+      this.rate.push({index: this.rate[this.rate.length - 1].index + 1, currency: {name: '', flag: ''}, denomination: ''})
     }
   }
 }
