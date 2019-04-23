@@ -110,10 +110,10 @@ export default {
         return
       }
       if (this.id) {
-        let payload = {
+        const payload = {
           _id: _this.id,
           name: _this.tempName,
-          flag: _this.tempFlag,
+          flag: _this.tempFlag
         }
         Api.editCurrency(payload, x => {
           switch (x) {
@@ -138,9 +138,9 @@ export default {
           }
         })
       } else {
-        let payload = {
+        const payload = {
           name: _this.tempName,
-          flag: _this.tempFlag,
+          flag: _this.tempFlag
         }
         Api.createCurrency(payload, x => {
           switch (x) {
@@ -177,6 +177,7 @@ export default {
         _this.tempFlag = reader.result.split(',')[1]
       }
       reader.onerror = function (error) {
+        console.log(error)
       }
     },
     onFilePicked (e) {

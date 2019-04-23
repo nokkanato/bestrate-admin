@@ -101,7 +101,7 @@ export default {
         let payload = {
           _id: _this.id,
           name: _this.tempName,
-          flag: _this.tempFlag,
+          flag: _this.tempFlag
         }
         Api.editCurrency(payload, x => {
           switch (x) {
@@ -128,7 +128,7 @@ export default {
       } else {
         let payload = {
           name: _this.tempName,
-          flag: _this.tempFlag,
+          flag: _this.tempFlag
         }
         Api.createCurrency(payload, x => {
           switch (x) {

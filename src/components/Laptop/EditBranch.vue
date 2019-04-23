@@ -26,7 +26,7 @@
                     </v-flex>
                 </v-layout>
                 <div v-if="loaded">
-                  <v-layout  row wrap v-for="(x, index) in rate" v-bind:key="index" style="border:solid 1px gray; margin-bottom:10px; background-color:#F0F0F0;">
+                  <v-layout  row wrap v-for="(x, index) in rate" v-bind:key="x.currency._id" style="border:solid 1px gray; margin-bottom:10px; background-color:#F0F0F0;">
                       <v-flex xs10>
                           <DynamicCurrency :allCur="allCur" :index="index" @pushTop="pushTop" :id="x.currency._id" :name="x.currency.name" :rate="rate" :denomination="x.denomination" :curencyList="curencyList" :flag="x.currency.flag"></DynamicCurrency>
                       </v-flex>
@@ -55,7 +55,7 @@ export default {
     if (!Api.isLogined()) {
       this.$router.push({name: 'login'})
     }
-    let payload = {
+    const payload = {
       _id: this.$route.query.id
     }
     Api.getBranch(payload, x => {
@@ -90,13 +90,14 @@ export default {
   },
   methods: {
     reset () {
-      let payload = {
+      const payload = {
         _id: this.$route.query.id
       }
       Api.getBranch(payload, x => {
         this.detail = x
         this.name = this.detail.name
         this.rate = this.detail.rates
+        console.log(this.rate)
         Api.getAllCurrency(z => {
           this.allCur = z
           this.curencyList = z.map(y => y.name)
@@ -109,45 +110,46 @@ export default {
       this.currencies[e.index] = e.payloadCurrency
     },
     remove (e) {
-      console.log('before', this.rate)
       this.rate.splice(e, 1)
-      console.log('after', this.rate)
       this.currencies.splice(e, 1)
     },
     save () {
       if (this.rate.length === 0 || this.currencies.length === 0) {
-        alert('There is nothing to save')
-        return
+        return alert('There is nothing to save')
       }
       this.indeterminate = true
-      let payload = {
+      const payload = {
         _id: this.$route.query.id,
         name: this.name,
         rates: this.currencies
       }
-      // return
       Api.editBranch(payload, x => {
-        if (x === 400) {
-          alert('please fill all the form')
-          this.reset()
-          this.indeterminate = false
-          return
-        }
-        if (x === 500) {
-          alert('please fill all the form')
-          this.reset()
-          this.indeterminate = false
-          return
-        }
-        if (x === 401) {
-          alert('Session Expired')
-          this.indeterminate = false
-          Api.resetToken()
-          this.$router.push({name: 'login'})
-        } else {
-          this.indeterminate = false
-          alert('successful')
-          this.reset()
+        switch (x) {
+          case 400: {
+            alert('please fill all the form')
+            this.reset()
+            this.indeterminate = false
+            break
+          }
+          case 500: {
+            alert('please fill all the form')
+            this.reset()
+            this.indeterminate = false
+            break
+          }
+          case 401: {
+            alert('Session Expired')
+            this.indeterminate = false
+            Api.resetToken()
+            this.$router.push({name: 'login'})
+            break
+          }
+          default: {
+            this.indeterminate = false
+            alert('successful')
+            this.reset()
+            break
+          }
         }
       })
     },

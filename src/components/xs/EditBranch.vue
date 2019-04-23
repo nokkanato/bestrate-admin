@@ -109,11 +109,6 @@ export default {
     remove (e) {
       this.rate.splice(e, 1)
       this.currencies.splice(e, 1)
-      let payload = {
-        _id: this.$route.query.id,
-        name: this.name,
-        rates: this.currencies
-      }
     },
     save () {
       if (this.rate.length === 0 || this.currencies.length === 0) {
