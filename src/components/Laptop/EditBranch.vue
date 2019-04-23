@@ -98,6 +98,7 @@ export default {
         this.detail = x
         this.name = this.detail.name
         this.rate = this.detail.rates
+        this.rate = this.rate.map((x, index) => ({...x, index}))
         console.log(this.rate)
         Api.getAllCurrency(z => {
           this.allCur = z
