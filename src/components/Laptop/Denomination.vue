@@ -43,6 +43,7 @@ export default {
     this.tempBill = this.bill
     this.tempBuy = this.buy
     this.tempSell = this.sell
+    console.log(this.index, 'index')
   },
   watch: {
     tempBill: function () {

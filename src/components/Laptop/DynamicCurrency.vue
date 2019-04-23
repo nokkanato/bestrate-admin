@@ -30,7 +30,7 @@
             </v-flex>
             <v-flex xs3></v-flex>
             <!-- header -->
-            <v-layout row wrap>
+            <v-layout row wrap v-if="!tempDenomination.length === 0">
                 <v-flex xs4></v-flex>
                 <v-flex xs7 style="border:solid 1px white; background-color:white; border-radius:2px;  margin-bottom:5px;">
                   <v-layout row wrap>
@@ -84,17 +84,17 @@ export default {
     this.tempName = this.name.substring(0, 10)
     this.tempDenomination = this.denomination || []
     this.tempDenomination = this.tempDenomination.map((x, index) => ({...x, index}))
-    console.log(this.tempDenomination, 'ss', this.tempDenomination[0].index)
     this.displayCurrency = this.curencyList.map(x => x.substring(0, 10))
+    console.log(this.displayCurrency, this.curencyList)
     this.tempFlag = this.flag
     this.tempId = this.id
   },
   watch: {
     tempName: function () {
-      let a = this.curencyList.filter(x => x.startsWith(this.tempName))[0]
+      let a = this.curencyList.filter(x => x === this.tempName)[0]
       this.tempFlag = this.allCur.filter(x => x.name === a)[0].flag
       this.tempId = this.allCur.filter(x => x.name === a)[0]._id
-      this.$emit('pushTop', { index: this.index, payloadCurrency: {currency: this.tempId, flag: this.tempFlag, denomination: this.tempDenomination} })
+      this.$emit('pushTop', {index: this.index, payloadCurrency: {currency: this.tempId, flag: this.tempFlag, denomination: this.tempDenomination}})
     }
   },
   methods: {
@@ -106,9 +106,11 @@ export default {
       this.$refs.form.lol()
     },
     addDenomination () {
-      console.log(this.tempDenomination, '=======')
-      console.log(this.tempDenomination[0].index, '==')
-      this.tempDenomination.push({index: this.tempDenomination[this.tempDenomination.length - 1].index + 1, bill: '', sell: '', buy: ''})
+      if (!this.tempDenomination || !this.tempDenomination.length) {
+        this.tempDenomination.push({index: 0, bill: '', sell: '', buy: ''})
+      } else {
+        this.tempDenomination.push({index: this.tempDenomination[this.tempDenomination.length - 1].index + 1, bill: '', sell: '', buy: ''})
+      }
     },
     remove (e) {
       this.tempDenomination.splice(e, 1)

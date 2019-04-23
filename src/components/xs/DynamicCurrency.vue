@@ -28,7 +28,7 @@
                 </p>
             </v-flex>
             <!-- header -->
-            <v-layout row wrap>
+            <v-layout row wrap v-if="!tempDenomination.length === 0">
                 <v-flex xs2></v-flex>
                 <v-flex xs8 style="border:solid 1px white; background-color:white; border-radius:2px;  margin-bottom:5px;">
                   <v-layout row wrap>
@@ -97,7 +97,11 @@ export default {
       this.$refs.form.lol()
     },
     addDenomination () {
-      this.tempDenomination.push({index: this.tempDenomination[this.tempDenomination.length - 1].index + 1, bill: '', sell: '', buy: ''})
+      if (!this.tempDenomination || !this.tempDenomination.length) {
+        this.tempDenomination.push({index: 0, bill: '', sell: '', buy: ''})
+      } else {
+        this.tempDenomination.push({index: this.tempDenomination[this.tempDenomination.length - 1].index + 1, bill: '', sell: '', buy: ''})
+      }
     },
     remove (e) {
       this.tempDenomination.splice(e, 1)
