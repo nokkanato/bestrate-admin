@@ -170,7 +170,7 @@ export default {
     },
     getBase64 (file) {
       let _this = this
-      var reader = new FileReader()
+      const reader = new FileReader()
       reader.readAsDataURL(file)
       reader.onload = function () {
         _this.tempFlag = reader.result.split(',')[1]

@@ -87,12 +87,9 @@ export default {
     this.displayCurrency = this.curencyList.map(x => x.substring(0, 10))
     this.tempFlag = this.flag
     this.tempId = this.id
-    console.log('=> mount dynamic currency', this.tempName)
   },
   watch: {
     tempName: function () {
-      // console.log('hello', this.curencyList)
-      console.log('tempname', this.tempName)
       let a = this.curencyList.filter(x => x.startsWith(this.tempName))[0]
       this.tempFlag = this.allCur.filter(x => x.name === a)[0].flag
       this.tempId = this.allCur.filter(x => x.name === a)[0]._id
@@ -108,6 +105,7 @@ export default {
       this.$refs.form.lol()
     },
     addDenomination () {
+      console.log(this.tempName)
       this.tempDenomination.push({name: '', flag: ''})
     },
     remove (e) {
