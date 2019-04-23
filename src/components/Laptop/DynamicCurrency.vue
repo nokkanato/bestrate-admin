@@ -57,7 +57,7 @@
                   </div> -->
                 </v-flex>
             </v-layout>
-            <v-layout style="width:250%;" row wrap v-for="(x, index) in tempDenomination" v-bind:key="index">
+            <v-layout style="width:250%;" row wrap v-for="(x, index) in tempDenomination" v-bind:key="x.index">
                 <!-- Body -->
                 <v-flex xs4></v-flex>
                 <v-flex xs7 style="">
@@ -83,7 +83,8 @@ export default {
   mounted () {
     this.tempName = this.name.substring(0, 10)
     this.tempDenomination = this.denomination || []
-    this.tempDenomination = this.tempDenomination.map(x => x)
+    this.tempDenomination = this.tempDenomination.map((x, index) => ({...x, index}))
+    console.log(this.tempDenomination, 'ss', this.tempDenomination[0].index)
     this.displayCurrency = this.curencyList.map(x => x.substring(0, 10))
     this.tempFlag = this.flag
     this.tempId = this.id
@@ -105,8 +106,10 @@ export default {
       this.$refs.form.lol()
     },
     addDenomination () {
-      console.log(this.tempName)
-      this.tempDenomination.push({name: '', flag: ''})
+      console.log(this.tempDenomination, '=======')
+      console.log(this.tempDenomination[0].index, '==')
+      this.tempDenomination.push({index: this.tempDenomination[this.tempDenomination.length - 1].index + 1, bill: '', sell: '', buy: ''})
+      // console.log(this.tempDenomination, this.tempDenomination.length)
     },
     remove (e) {
       this.tempDenomination.splice(e, 1)
