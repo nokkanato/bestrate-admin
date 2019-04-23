@@ -1,7 +1,7 @@
 <template>
     <v-content>
         <!-- Add branches button -->
-        <v-layout row wrap style="margin-top:100px;">
+        <v-layout row wrap style="margin-top:50px;">
             <v-flex xs8></v-flex>
             <v-flex xs2>
                 <div @click="toggleDialog" class="button-add-branches">
