@@ -31,6 +31,7 @@ export default {
     this.indeterminate = true
     Api.getAllCurrency(x => {
       this.currencies = x
+      this.currencies = this.currencies.map((x, index) => ({...x, index}))
       this.loaded = true
       this.indeterminate = false
     })
@@ -44,6 +45,7 @@ export default {
       this.loaded = false
       Api.getAllCurrency(x => {
         this.currencies = x
+        this.currencies = this.currencies.map((x, index) => ({...x, index}))
         this.indeterminate = false
         this.loaded = true
       })
@@ -52,7 +54,7 @@ export default {
       this.currencies.splice(index, 1)
     },
     addCurrency () {
-      this.currencies.push({_id: '', name: '', flag: ''})
+      this.currencies.push({index: this.currencies[this.currencies.length - 1].index + 1, _id: '', name: '', flag: ''})
     }
   },
   data () {

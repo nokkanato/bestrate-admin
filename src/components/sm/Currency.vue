@@ -29,6 +29,7 @@ export default {
     this.indeterminate = true
     Api.getAllCurrency(x => {
       this.currencies = x
+      this.currencies = this.currencies.map((x, index) => ({...x, index}))
       this.loaded = true
       this.indeterminate = false
     })
@@ -40,6 +41,7 @@ export default {
     reset () {
       Api.getAllCurrency(x => {
         this.currencies = x
+        this.currencies = this.currencies.map((x, index) => ({...x, index}))
       })
     },
     delCurrency (index) {
